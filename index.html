@@ -41,26 +41,14 @@
 <body>
     <h1>Welcome to AlienShop</h1>
     <h2>Available Scripts</h2>
-    <ul class="script-list" id="script-list"></ul>
+    <ul class="script-list" id="script-list">
+        <li class="script-item"><strong>Script A</strong> - Price: $5 <button onclick="buyScript(1)">Buy</button></li>
+        <li class="script-item"><strong>Script B</strong> - Price: $10 <button onclick="buyScript(2)">Buy</button></li>
+        <li class="script-item"><strong>Script C</strong> - Price: $15 <button onclick="buyScript(3)">Buy</button></li>
+    </ul>
 
     <script>
-        // Example script data
-        const scripts = [
-            { id: 1, name: "Script A", price: "$5" },
-            { id: 2, name: "Script B", price: "$10" },
-            { id: 3, name: "Script C", price: "$15" },
-        ];
-
-        // Display the scripts
-        const scriptList = document.getElementById('script-list');
-        scripts.forEach(script => {
-            const li = document.createElement('li');
-            li.className = 'script-item';
-            li.innerHTML = `<strong>${script.name}</strong> - Price: ${script.price} <button onclick="buyScript(${script.id})">Buy</button>`;
-            scriptList.appendChild(li);
-        });
-
-        // Placeholder for buying a script
+        // Placeholder function for buying a script
         function buyScript(scriptId) {
             alert(`You bought Script ID: ${scriptId}`);
         }
