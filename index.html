@@ -1,197 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlienShop - Roblox Lua Scripts</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #121212;
-            color: #fff;
-        }
-
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #1e1e1e;
-            padding: 15px 20px;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-        }
-
-        nav ul li {
-            margin: 0 15px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 50px 20px;
-            background: #222;
-        }
-
-        .hero h1 {
-            font-size: 36px;
-        }
-
-        .hero p {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            background: #ff5722;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            display: inline-block;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background: #e64a19;
-        }
-
-        /* Script Showcase */
-        .scripts, .script-details {
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .script-list {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .script {
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 10px;
-            width: 250px;
-            text-align: center;
-        }
-
-        .script h3 {
-            margin-bottom: 10px;
-        }
-
-        /* Hidden section for script details */
-        .script-details {
-            display: none;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 15px;
-            background: #1e1e1e;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AlienShop - Your number one source for premium Roblox Lua Scripts.">
+  <title>AlienShop - Roblox Lua Scripts</title>
+  <style>
+    /* Reset some default elements */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #fff;
+      line-height: 1.6;
+    }
+    
+    a {
+      text-decoration: none;
+    }
+    
+    /* Header */
+    header {
+      background: #1e1e1e;
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    nav {
+      margin-top: 10px;
+    }
+    
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    
+    nav ul li {
+      position: relative;
+    }
+    
+    nav ul li a {
+      color: #fff;
+      font-size: 18px;
+      padding: 5px 0;
+      transition: color 0.3s ease;
+    }
+    
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: #ff5722;
+    }
+    
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: #222;
+      animation: fadeIn 1s ease-out;
+    }
+    
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+    
+    /* Buttons */
+    .btn {
+      background: #ff5722;
+      color: #fff;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn:hover {
+      background: #e64a19;
+    }
+    
+    /* Scripts Section */
+    .scripts,
+    .script-details {
+      padding: 50px 20px;
+      text-align: center;
+    }
+    
+    .scripts h2,
+    .script-details h2 {
+      font-size: 36px;
+      margin-bottom: 40px;
+    }
+    
+    .script-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      justify-items: center;
+      padding: 0 20px;
+    }
+    
+    .script {
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 300px;
+      transition: transform 0.3s ease;
+    }
+    
+    .script:hover {
+      transform: translateY(-5px);
+    }
+    
+    .script h3 {
+      margin-bottom: 10px;
+    }
+    
+    /* Hidden Sections */
+    .script-details {
+      display: none;
+    }
+    
+    /* Additional Section: About */
+    .about {
+      padding: 50px 20px;
+      background: #1e1e1e;
+      text-align: center;
+    }
+    
+    .about h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    
+    .about p {
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto 20px;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      background: #1e1e1e;
+      padding: 15px;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+    
+    /* Media Queries */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+      
+      .hero p {
+        font-size: 16px;
+      }
+      
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    
+    /* Simple Fade In Animation */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">AlienShop</div>
-        <nav>
-            <ul>
-                <li><a href="#" onclick="showHome()">Home</a></li>
-                <li><a href="#" onclick="showScripts()">Scripts</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section class="hero" id="home">
-            <h1>Welcome to AlienShop</h1>
-            <p>Your #1 source for premium Roblox Lua scripts.</p>
-            <a href="#" class="btn" onclick="showScripts()">Browse Scripts</a>
-        </section>
-
-        <!-- Scripts List Section -->
-        <section class="scripts" id="scripts">
-            <h2>Featured Scripts</h2>
-            <div class="script-list">
-                <div class="script">
-                    <h3>Aimbot Script</h3>
-                    <p>Auto-lock onto targets effortlessly.</p>
-                    <a href="#" class="btn" onclick="viewScript('Aimbot Script', 'Auto-lock onto targets effortlessly.', '10.99')">View Script</a>
-                </div>
-                <div class="script">
-                    <h3>ESP Script</h3>
-                    <p>See players through walls.</p>
-                    <a href="#" class="btn" onclick="viewScript('ESP Script', 'See players through walls easily.', '8.99')">View Script</a>
-                </div>
-                <div class="script">
-                    <h3>Auto Farm</h3>
-                    <p>Automate your farming process.</p>
-                    <a href="#" class="btn" onclick="viewScript('Auto Farm', 'Automate farming for faster progress.', '12.99')">View Script</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Script Details Section -->
-        <section class="script-details" id="script-details">
-            <h2 id="script-title"></h2>
-            <p id="script-description"></p>
-            <p><strong>Price: $<span id="script-price"></span></strong></p>
-            <a href="#" class="btn">Buy Now</a>
-            <br><br>
-            <a href="#" class="btn" onclick="showScripts()">Back</a>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 AlienShop. All rights reserved.</p>
-    </footer>
-
-    <script>
-        function showHome() {
-            document.getElementById('home').style.display = 'block';
-            document.getElementById('scripts').style.display = 'none';
-            document.getElementById('script-details').style.display = 'none';
-        }
-
-        function showScripts() {
-            document.getElementById('home').style.display = 'none';
-            document.getElementById('scripts').style.display = 'block';
-            document.getElementById('script-details').style.display = 'none';
-        }
-
-        function viewScript(title, description, price) {
-            document.getElementById('script-title').innerText = title;
-            document.getElementById('script-description').innerText = description;
-            document.getElementById('script-price').innerText = price;
-
-            document.getElementById('home').style.display = 'none';
-            document.getElementById('scripts').style.display = 'none';
-            document.getElementById('script-details').style.display = 'block';
-        }
-    </script>
+  <!-- Header -->
+  <header>
+    <div class="logo">AlienShop</div>
+    <nav>
+      <ul>
+        <li><a href="#" class="active" onclick="showSection('home')">Home</a></li>
+        <li><a href="#" onclick="showSection('scripts')">Scripts</a></li>
+        <li><a href="#" onclick="showSection('about')">About</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Main Content -->
+  <main>
+    <!-- Home / Hero Section -->
+    <section class="hero" id="home">
+      <h1>Welcome to AlienShop</h1>
+      <p>Your #1 source for premium Roblox Lua scripts. Enhance your gaming experience with our cutting-edge tools.</p>
+      <button class="btn" onclick="showSection('scripts')">Browse Scripts</button>
+    </section>
+    
+    <!-- Scripts List Section -->
+    <section class="scripts" id="scripts" style="display: none;">
+      <h2>Featured Scripts</h2>
+      <div class="script-list">
+        <div class="script">
+          <h3>Aimbot Script</h3>
+          <p>Auto-lock onto targets effortlessly.</p>
+          <button class="btn" onclick="viewScript('Aimbot Script', 'Auto-lock onto targets effortlessly.', '10.99')">View Script</button>
+        </div>
+        <div class="script">
+          <h3>ESP Script</h3>
+          <p>See players through walls easily.</p>
+          <button class="btn" onclick="viewScript('ESP Script', 'See players through walls easily.', '8.99')">View Script</button>
+        </div>
+        <div class="script">
+          <h3>Auto Farm</h3>
+          <p>Automate your farming process for faster progress.</p>
+          <button class="btn" onclick="viewScript('Auto Farm', 'Automate farming for faster progress.', '12.99')">View Script</button>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Script Details Section -->
+    <section class="script-details" id="script-details">
+      <h2 id="script-title"></h2>
+      <p id="script-description"></p>
+      <p><strong>Price: USD <span id="script-price"></span></strong></p>
+      <button class="btn">Buy Now</button>
+      <br><br>
+      <button class="btn" onclick="showSection('scripts')">Back</button>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about" id="about" style="display: none;">
+      <h2>About AlienShop</h2>
+      <p>At AlienShop, we specialize in providing high-quality, reliable Roblox Lua scripts to enhance your gaming adventures. Our team is dedicated to delivering innovative scripts that streamline gameplay and give you a competitive edge.</p>
+      <p>Whether you're looking to automate tasks or improve your in-game performance, our curated selection is built to help you succeed. Join our community and experience the future of Roblox scripting today!</p>
+    </section>
+  </main>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 AlienShop. All rights reserved.</p>
+  </footer>
+  
+  <!-- JavaScript for Navigation -->
+  <script>
+    function showSection(section) {
+      // Hide all sections
+      document.getElementById('home').style.display = 'none';
+      document.getElementById('scripts').style.display = 'none';
+      document.getElementById('script-details').style.display = 'none';
+      document.getElementById('about').style.display = 'none';
+      
+      // Remove active class from nav links
+      document.querySelectorAll('nav ul li a').forEach(link => {
+        link.classList.remove('active');
+      });
+      
+      // Show selected section
+      if(section === 'home') {
+        document.getElementById('home').style.display = 'block';
+        document.querySelector('nav ul li a:nth-child(1)').classList.add('active');
+      } else if(section === 'scripts') {
+        document.getElementById('scripts').style.display = 'block';
+        document.querySelector('nav ul li a:nth-child(2)').classList.add('active');
+      } else if(section === 'about') {
+        document.getElementById('about').style.display = 'block';
+        document.querySelector('nav ul li a:nth-child(3)').classList.add('active');
+      }
+    }
+    
+    function viewScript(title, description, price) {
+      document.getElementById('script-title').innerText = title;
+      document.getElementById('script-description').innerText = description;
+      document.getElementById('script-price').innerText = price;
+      
+      // Show details and hide others
+      document.getElementById('home').style.display = 'none';
+      document.getElementById('scripts').style.display = 'none';
+      document.getElementById('about').style.display = 'none';
+      document.getElementById('script-details').style.display = 'block';
+      
+      // Remove active from all nav items since detail view is not a primary nav section
+      document.querySelectorAll('nav ul li a').forEach(link => {
+        link.classList.remove('active');
+      });
+    }
+  </script>
 </body>
 </html>
