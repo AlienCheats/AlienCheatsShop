@@ -250,7 +250,7 @@
   </style>
 </head>
 <body>
-  <!-- Location Modal (pops up on page load) -->
+  <!-- Location Modal -->
   <div id="location-modal" class="modal-overlay active">
     <div class="modal-content">
       <h3>Select Your Location</h3>
@@ -263,8 +263,16 @@
         <label for="loc-us">United States</label>
       </div>
       <div class="modal-option">
+        <input type="radio" id="loc-uk" name="location" value="United Kingdom">
+        <label for="loc-uk">United Kingdom</label>
+      </div>
+      <div class="modal-option">
         <input type="radio" id="loc-europe" name="location" value="Europe">
         <label for="loc-europe">Europe</label>
+      </div>
+      <div class="modal-option">
+        <input type="radio" id="loc-australia" name="location" value="Australia">
+        <label for="loc-australia">Australia</label>
       </div>
       <button class="btn modal-btn" onclick="setLocation()">Proceed</button>
     </div>
@@ -366,19 +374,19 @@
     // Global variable for selected location
     let selectedLocation = null;
     // Pricing conversion based on location.
-    // Base price is 0.30 if in CAD.
+    // Base price is defined in CAD (0.30) then converted based on the selected country.
     const pricing = {
       "Canada": { symbol: "CAD", price: 0.30 },
-      "United States": { symbol: "USD", price: 0.30 * 0.75 },   // Adjust conversion factor as needed.
-      "Europe": { symbol: "EUR", price: 0.30 * 0.70 }           // Adjust conversion factor as needed.
+      "United States": { symbol: "USD", price: 0.30 * 0.75 },
+      "United Kingdom": { symbol: "GBP", price: 0.30 * 0.65 },
+      "Europe": { symbol: "EUR", price: 0.30 * 0.70 },
+      "Australia": { symbol: "AUD", price: 0.30 * 0.95 }
     };
 
-    // When the location modal proceeds, set selectedLocation and hide modal.
     function setLocation() {
       const loc = document.querySelector('input[name="location"]:checked').value;
       selectedLocation = loc;
       document.getElementById('location-modal').classList.remove('active');
-      // Optionally, update any pricing displayed in the scripts list if needed.
     }
 
     function showSection(section) {
@@ -406,20 +414,17 @@
       }
     }
 
-    // Function to view a script's details.
     function viewScript(title, description) {
       document.getElementById('script-title').innerText = title;
       document.getElementById('script-description').innerText = description;
       
-      // Use the selected location to determine pricing.
-      // Fallback to Canada if no location is selected.
+      // Determine pricing based on location; fallback to Canada.
       let loc = selectedLocation || "Canada";
       let pricingInfo = pricing[loc];
-      // Round price to two decimals.
       let priceFormatted = pricingInfo.price.toFixed(2);
       document.getElementById('script-price-tag').innerHTML = `<strong>Price: ${pricingInfo.symbol} ${priceFormatted}</strong>`;
       
-      // Hide other sections and show script details.
+      // Display the script details.
       document.getElementById('home').style.display = 'none';
       document.getElementById('scripts').style.display = 'none';
       document.getElementById('about').style.display = 'none';
