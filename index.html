@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="AlienShop - Premium Roblox Lua Scripts with a modern design and smooth animations.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="AlienShop - Premium Roblox Lua Scripts with a modern design, smooth animations, and dynamic pricing based on your location." />
   <title>AlienShop - Roblox Lua Scripts</title>
   <!-- Google Fonts: Using Montserrat as the primary font -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
   <style>
     /* Reset styles */
     *, *::before, *::after {
@@ -14,7 +14,7 @@
       margin: 0;
       padding: 0;
     }
-    
+
     /* Base Styles */
     body {
       font-family: 'Montserrat', sans-serif;
@@ -26,7 +26,7 @@
     a {
       text-decoration: none;
     }
-    
+
     /* Header */
     header {
       background: linear-gradient(90deg, #3a3f51, #1e2022);
@@ -160,8 +160,8 @@
       text-align: center;
     }
     
-    /* Modal Styles */
-    #payment-modal {
+    /* Modal Common Styles */
+    .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
@@ -177,7 +177,7 @@
       z-index: 2000;
     }
     
-    #payment-modal.active {
+    .modal-overlay.active {
       opacity: 1;
       pointer-events: auto;
     }
@@ -197,7 +197,7 @@
       color: #ff4081;
     }
     
-    .payment-option {
+    .modal-option {
       margin: 10px 0;
       text-align: left;
       font-size: 16px;
@@ -250,6 +250,25 @@
   </style>
 </head>
 <body>
+  <!-- Location Modal (pops up on page load) -->
+  <div id="location-modal" class="modal-overlay active">
+    <div class="modal-content">
+      <h3>Select Your Location</h3>
+      <div class="modal-option">
+        <input type="radio" id="loc-canada" name="location" value="Canada" checked>
+        <label for="loc-canada">Canada</label>
+      </div>
+      <div class="modal-option">
+        <input type="radio" id="loc-us" name="location" value="United States">
+        <label for="loc-us">United States</label>
+      </div>
+      <div class="modal-option">
+        <input type="radio" id="loc-europe" name="location" value="Europe">
+        <label for="loc-europe">Europe</label>
+      </div>
+      <button class="btn modal-btn" onclick="setLocation()">Proceed</button>
+    </div>
+  </div>
 
   <!-- Header -->
   <header>
@@ -268,7 +287,7 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
       <h1>Welcome to AlienShop</h1>
-      <p>Your premier destination for premium Roblox Lua scripts with a modern twist.</p>
+      <p>Your premier destination for premium Roblox Lua scripts with a modern twist and dynamic pricing.</p>
       <button class="btn" onclick="showSection('scripts')">Browse Scripts</button>
     </section>
 
@@ -279,17 +298,17 @@
         <div class="script">
           <h3>Aimbot Script</h3>
           <p>Automatically lock onto targets with precision.</p>
-          <button class="btn" onclick="viewScript('Aimbot Script', 'Automatically lock onto targets with precision.', '10.99')">View Script</button>
+          <button class="btn" onclick="viewScript('Aimbot Script', 'Automatically lock onto targets with precision.')">View Script</button>
         </div>
         <div class="script">
           <h3>ESP Script</h3>
           <p>Easily see players through obstacles.</p>
-          <button class="btn" onclick="viewScript('ESP Script', 'Easily see players through obstacles.', '8.99')">View Script</button>
+          <button class="btn" onclick="viewScript('ESP Script', 'Easily see players through obstacles.')">View Script</button>
         </div>
         <div class="script">
           <h3>Auto Farm</h3>
           <p>Boost your progress with automated resource collection.</p>
-          <button class="btn" onclick="viewScript('Auto Farm', 'Boost your progress with automated resource collection.', '12.99')">View Script</button>
+          <button class="btn" onclick="viewScript('Auto Farm', 'Boost your progress with automated resource collection.')">View Script</button>
         </div>
       </div>
     </section>
@@ -298,9 +317,9 @@
     <section class="script-details" id="script-details">
       <h2 id="script-title" class="section-title"></h2>
       <p id="script-description"></p>
-      <p><strong>Price: USD <span id="script-price"></span></strong></p>
+      <p id="script-price-tag"><strong>Price: </strong></p>
       <button class="btn" onclick="showPaymentModal()">Buy Now</button>
-      <br><br>
+      <br /><br />
       <button class="btn" onclick="showSection('scripts')">Back</button>
     </section>
 
@@ -313,23 +332,23 @@
   </main>
 
   <!-- Payment Modal -->
-  <div id="payment-modal">
+  <div id="payment-modal" class="modal-overlay">
     <div class="modal-content">
       <h3>Select Payment Method</h3>
-      <div class="payment-option">
-        <input type="radio" id="apple" name="payment" value="Apple Gift Card" checked>
+      <div class="modal-option">
+        <input type="radio" id="apple" name="payment" value="Apple Gift Card" checked />
         <label for="apple">Apple Gift Card</label>
       </div>
-      <div class="payment-option">
-        <input type="radio" id="robux" name="payment" value="Robux">
+      <div class="modal-option">
+        <input type="radio" id="robux" name="payment" value="Robux" />
         <label for="robux">Robux</label>
       </div>
-      <div class="payment-option">
-        <input type="radio" id="paypal" name="payment" value="PayPal">
+      <div class="modal-option">
+        <input type="radio" id="paypal" name="payment" value="PayPal" />
         <label for="paypal">PayPal</label>
       </div>
-      <div class="payment-option">
-        <input type="radio" id="google" name="payment" value="Google Play Gift Card">
+      <div class="modal-option">
+        <input type="radio" id="google" name="payment" value="Google Play Gift Card" />
         <label for="google">Google Play Gift Card</label>
       </div>
       <button class="btn modal-btn" onclick="processPayment()">Proceed</button>
@@ -342,21 +361,39 @@
     <p>&copy; 2025 AlienShop. All rights reserved.</p>
   </footer>
 
-  <!-- JavaScript for Navigation and Modal -->
+  <!-- JavaScript for Navigation, Pricing, and Modal Handling -->
   <script>
+    // Global variable for selected location
+    let selectedLocation = null;
+    // Pricing conversion based on location.
+    // Base price is 0.30 if in CAD.
+    const pricing = {
+      "Canada": { symbol: "CAD", price: 0.30 },
+      "United States": { symbol: "USD", price: 0.30 * 0.75 },   // Adjust conversion factor as needed.
+      "Europe": { symbol: "EUR", price: 0.30 * 0.70 }           // Adjust conversion factor as needed.
+    };
+
+    // When the location modal proceeds, set selectedLocation and hide modal.
+    function setLocation() {
+      const loc = document.querySelector('input[name="location"]:checked').value;
+      selectedLocation = loc;
+      document.getElementById('location-modal').classList.remove('active');
+      // Optionally, update any pricing displayed in the scripts list if needed.
+    }
+
     function showSection(section) {
-      // Hide all sections
+      // Hide all sections.
       document.getElementById('home').style.display = 'none';
       document.getElementById('scripts').style.display = 'none';
       document.getElementById('script-details').style.display = 'none';
       document.getElementById('about').style.display = 'none';
       
-      // Remove active class from navigation links
+      // Remove active class from navigation links.
       document.querySelectorAll('nav ul li a').forEach(link => {
         link.classList.remove('active');
       });
       
-      // Show the selected section and add active class if it's a main section
+      // Show the relevant section.
       if (section === 'home') {
         document.getElementById('home').style.display = 'block';
         document.querySelector('nav ul li a:nth-child(1)').classList.add('active');
@@ -368,25 +405,30 @@
         document.querySelector('nav ul li a:nth-child(3)').classList.add('active');
       }
     }
-    
-    function viewScript(title, description, price) {
-      // Populate script details
+
+    // Function to view a script's details.
+    function viewScript(title, description) {
       document.getElementById('script-title').innerText = title;
       document.getElementById('script-description').innerText = description;
-      document.getElementById('script-price').innerText = price;
       
-      // Hide main sections and show script details
+      // Use the selected location to determine pricing.
+      // Fallback to Canada if no location is selected.
+      let loc = selectedLocation || "Canada";
+      let pricingInfo = pricing[loc];
+      // Round price to two decimals.
+      let priceFormatted = pricingInfo.price.toFixed(2);
+      document.getElementById('script-price-tag').innerHTML = `<strong>Price: ${pricingInfo.symbol} ${priceFormatted}</strong>`;
+      
+      // Hide other sections and show script details.
       document.getElementById('home').style.display = 'none';
       document.getElementById('scripts').style.display = 'none';
       document.getElementById('about').style.display = 'none';
       document.getElementById('script-details').style.display = 'block';
       
-      // Remove active class from nav links as details is not a main nav item
-      document.querySelectorAll('nav ul li a').forEach(link => {
-        link.classList.remove('active');
-      });
+      // Remove active class from nav links.
+      document.querySelectorAll('nav ul li a').forEach(link => link.classList.remove('active'));
     }
-    
+
     function showPaymentModal() {
       document.getElementById('payment-modal').classList.add('active');
     }
@@ -396,7 +438,6 @@
     }
     
     function processPayment() {
-      // Simulation: alert the selected payment method and close the modal
       let selectedPayment = document.querySelector('input[name="payment"]:checked').value;
       alert("Processing payment using " + selectedPayment + "...");
       closePaymentModal();
