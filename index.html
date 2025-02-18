@@ -317,16 +317,20 @@
     <div class="modal-content">
       <h3>Select Payment Method</h3>
       <div class="payment-option">
-        <input type="radio" id="credit" name="payment" value="Credit Card" checked>
-        <label for="credit">Credit Card</label>
+        <input type="radio" id="apple" name="payment" value="Apple Gift Card" checked>
+        <label for="apple">Apple Gift Card</label>
+      </div>
+      <div class="payment-option">
+        <input type="radio" id="robux" name="payment" value="Robux">
+        <label for="robux">Robux</label>
       </div>
       <div class="payment-option">
         <input type="radio" id="paypal" name="payment" value="PayPal">
         <label for="paypal">PayPal</label>
       </div>
       <div class="payment-option">
-        <input type="radio" id="crypto" name="payment" value="Crypto">
-        <label for="crypto">Crypto</label>
+        <input type="radio" id="google" name="payment" value="Google Play Gift Card">
+        <label for="google">Google Play Gift Card</label>
       </div>
       <button class="btn modal-btn" onclick="processPayment()">Proceed</button>
       <button class="btn modal-btn" onclick="closePaymentModal()">Cancel</button>
@@ -392,7 +396,7 @@
     }
     
     function processPayment() {
-      // Simple simulation: alert the selected payment method and close modal
+      // Simulation: alert the selected payment method and close the modal
       let selectedPayment = document.querySelector('input[name="payment"]:checked').value;
       alert("Processing payment using " + selectedPayment + "...");
       closePaymentModal();
