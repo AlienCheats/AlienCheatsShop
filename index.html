@@ -43,6 +43,7 @@
             color: white;
             text-decoration: none;
             font-size: 18px;
+            cursor: pointer;
         }
 
         /* Hero Section */
@@ -68,6 +69,7 @@
             text-decoration: none;
             border-radius: 5px;
             display: inline-block;
+            cursor: pointer;
         }
 
         .btn:hover {
@@ -75,7 +77,7 @@
         }
 
         /* Script Showcase */
-        .scripts {
+        .scripts, .script-details {
             padding: 40px 20px;
             text-align: center;
         }
@@ -99,6 +101,11 @@
             margin-bottom: 10px;
         }
 
+        /* Hidden section for script details */
+        .script-details {
+            display: none;
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -113,8 +120,8 @@
         <div class="logo">AlienShop</div>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#scripts">Scripts</a></li>
+                <li><a href="#" onclick="showHome()">Home</a></li>
+                <li><a href="#" onclick="showScripts()">Scripts</a></li>
             </ul>
         </nav>
     </header>
@@ -123,33 +130,68 @@
         <section class="hero" id="home">
             <h1>Welcome to AlienShop</h1>
             <p>Your #1 source for premium Roblox Lua scripts.</p>
-            <a href="#scripts" class="btn">Browse Scripts</a>
+            <a href="#" class="btn" onclick="showScripts()">Browse Scripts</a>
         </section>
 
+        <!-- Scripts List Section -->
         <section class="scripts" id="scripts">
             <h2>Featured Scripts</h2>
             <div class="script-list">
                 <div class="script">
                     <h3>Aimbot Script</h3>
                     <p>Auto-lock onto targets effortlessly.</p>
-                    <a href="#scripts" class="btn">View Script</a>
+                    <a href="#" class="btn" onclick="viewScript('Aimbot Script', 'Auto-lock onto targets effortlessly.', '10.99')">View Script</a>
                 </div>
                 <div class="script">
                     <h3>ESP Script</h3>
                     <p>See players through walls.</p>
-                    <a href="#scripts" class="btn">View Script</a>
+                    <a href="#" class="btn" onclick="viewScript('ESP Script', 'See players through walls easily.', '8.99')">View Script</a>
                 </div>
                 <div class="script">
                     <h3>Auto Farm</h3>
                     <p>Automate your farming process.</p>
-                    <a href="#scripts" class="btn">View Script</a>
+                    <a href="#" class="btn" onclick="viewScript('Auto Farm', 'Automate farming for faster progress.', '12.99')">View Script</a>
                 </div>
             </div>
+        </section>
+
+        <!-- Script Details Section -->
+        <section class="script-details" id="script-details">
+            <h2 id="script-title"></h2>
+            <p id="script-description"></p>
+            <p><strong>Price: $<span id="script-price"></span></strong></p>
+            <a href="#" class="btn">Buy Now</a>
+            <br><br>
+            <a href="#" class="btn" onclick="showScripts()">Back</a>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2025 AlienShop. All rights reserved.</p>
     </footer>
+
+    <script>
+        function showHome() {
+            document.getElementById('home').style.display = 'block';
+            document.getElementById('scripts').style.display = 'none';
+            document.getElementById('script-details').style.display = 'none';
+        }
+
+        function showScripts() {
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('scripts').style.display = 'block';
+            document.getElementById('script-details').style.display = 'none';
+        }
+
+        function viewScript(title, description, price) {
+            document.getElementById('script-title').innerText = title;
+            document.getElementById('script-description').innerText = description;
+            document.getElementById('script-price').innerText = price;
+
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('scripts').style.display = 'none';
+            document.getElementById('script-details').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
