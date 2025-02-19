@@ -1,520 +1,677 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="AlienShop - Premium Roblox Lua Scripts with a modern design, smooth animations, and dynamic pricing based on your location." />
-  <title>AlienShop - Roblox Lua Scripts</title>
-  <!-- Google Fonts: Using Montserrat as the primary font -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
-  <style>
-    /* Reset styles */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <meta
+      name="description"
+      content="AlienShop - Premium Roblox Lua Scripts with a modern design, smooth animations, and dynamic pricing based on your location."
+    />
+    <title>AlienShop - Roblox Lua Scripts</title>
+    <!-- Google Fonts: Using Montserrat as the primary font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Reset styles */
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    /* Base Styles */
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #1b2735, #090a0f);
-      color: #e0e4e8;
-      line-height: 1.6;
-    }
-    
-    a {
-      text-decoration: none;
-    }
+      /* Base Styles */
+      body {
+        font-family: 'Montserrat', sans-serif;
+        background: linear-gradient(135deg, #1b2735, #090a0f);
+        color: #e0e4e8;
+        line-height: 1.6;
+      }
 
-    /* Header */
-    header {
-      background: linear-gradient(90deg, #3a3f51, #1e2022);
-      padding: 20px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    
-    .logo {
-      font-size: 28px;
-      font-weight: bold;
-      color: #ff4081;
-    }
-    
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
-    
-    nav ul li a {
-      color: #e0e4e8;
-      font-size: 18px;
-      transition: color 0.3s ease;
-    }
-    
-    nav ul li a:hover,
-    nav ul li a.active {
-      color: #ff4081;
-    }
-    
-    /* Hero Section */
-    .hero {
-      text-align: center;
-      padding: 80px 20px;
-      background: linear-gradient(135deg, #2a2f36, #1f232a);
-      border-bottom: 2px solid #ff4081;
-      animation: fadeIn 1s ease-out;
-    }
-    
-    .hero h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-      color: #ff4081;
-    }
-    
-    .hero p {
-      font-size: 20px;
-      margin-bottom: 30px;
-    }
-    
-    .btn {
-      background: #ff4081;
-      color: #fff;
-      padding: 12px 30px;
-      font-size: 16px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: transform 0.2s ease, background-color 0.3s ease;
-    }
-    
-    .btn:hover {
-      background: #e73170;
-      transform: translateY(-3px);
-    }
-    
-    .btn:active {
-      transform: scale(0.95);
-    }
-    
-    /* Sections */
-    section {
-      padding: 60px 20px;
-    }
-    
-    .section-title {
-      text-align: center;
-      font-size: 36px;
-      margin-bottom: 40px;
-      color: #ff4081;
-    }
-    
-    /* Scripts Section */
-    .script-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-    
-    .script {
-      background: #2b2e33;
-      border-radius: 8px;
-      padding: 20px;
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
-    
-    .script:hover {
-      transform: translateY(-5px);
-    }
-    
-    .script h3 {
-      margin-bottom: 10px;
-      color: #ff4081;
-    }
-    
-    /* Script Details Section */
-    .script-details {
-      display: none;
-      text-align: center;
-    }
-    
-    .script-details p {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-    
-    /* About Section */
-    .about {
-      background: #1f232a;
-      border-radius: 8px;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 40px;
-      text-align: center;
-    }
-    
-    /* Checkout Section */
-    .checkout {
-      display: none;
-      max-width: 500px;
-      margin: 0 auto;
-      background: #1f232a;
-      padding: 30px;
-      border-radius: 8px;
-    }
-    
-    .checkout form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-    
-    .checkout label {
-      font-size: 16px;
-      margin-bottom: 5px;
-    }
-    
-    .checkout input {
-      padding: 8px 10px;
-      font-size: 16px;
-      border-radius: 4px;
-      border: none;
-    }
-    
-    .checkout p {
-      font-size: 16px;
-      margin: 8px 0;
-    }
-    
-    /* Modal Common Styles */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(15, 15, 15, 0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 2000;
-    }
-    
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    
-    .modal-content {
-      background: #2a2f36;
-      padding: 30px;
-      border-radius: 8px;
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-      animation: slideDown 0.4s ease-out;
-    }
-    
-    .modal-content h3 {
-      margin-bottom: 20px;
-      color: #ff4081;
-    }
-    
-    .modal-option {
-      margin: 10px 0;
-      text-align: left;
-      font-size: 16px;
-    }
-    
-    .modal-btn {
-      margin: 15px 5px 0;
-    }
-    
-    /* Footer */
-    footer {
-      text-align: center;
-      background: #1e2022;
-      padding: 20px;
-      font-size: 14px;
-      border-top: 2px solid #ff4081;
-    }
-    
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    /* Responsive Navigation */
-    @media (max-width: 600px) {
+      a {
+        text-decoration: none;
+      }
+
+      /* Header */
       header {
-        flex-direction: column;
+        background: linear-gradient(90deg, #3a3f51, #1e2022);
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
       }
-      
+
+      .logo {
+        font-size: 28px;
+        font-weight: bold;
+        color: #ff4081;
+      }
+
       nav ul {
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 10px;
+        list-style: none;
+        display: flex;
+        gap: 20px;
       }
-      
-      .hero h1 {
-        font-size: 36px;
-      }
-      
-      .hero p {
+
+      nav ul li a {
+        color: #e0e4e8;
         font-size: 18px;
+        transition: color 0.3s ease;
       }
-    }
-  </style>
-</head>
-<body>
-  <!-- Location Modal -->
-  <div id="location-modal" class="modal-overlay active">
-    <div class="modal-content">
-      <h3>Select Your Location</h3>
-      <div class="modal-option">
-        <input type="radio" id="loc-canada" name="location" value="Canada" checked>
-        <label for="loc-canada">Canada</label>
-      </div>
-      <div class="modal-option">
-        <input type="radio" id="loc-us" name="location" value="United States">
-        <label for="loc-us">United States</label>
-      </div>
-      <div class="modal-option">
-        <input type="radio" id="loc-uk" name="location" value="United Kingdom">
-        <label for="loc-uk">United Kingdom</label>
-      </div>
-      <div class="modal-option">
-        <input type="radio" id="loc-europe" name="location" value="Europe">
-        <label for="loc-europe">Europe</label>
-      </div>
-      <div class="modal-option">
-        <input type="radio" id="loc-australia" name="location" value="Australia">
-        <label for="loc-australia">Australia</label>
-      </div>
-      <button class="btn modal-btn" onclick="setLocation()">Proceed</button>
-    </div>
-  </div>
 
-  <!-- Header -->
-  <header>
-    <div class="logo">AlienShop</div>
-    <nav>
-      <ul>
-        <li><a href="#" class="active" onclick="showSection('home')">Home</a></li>
-        <li><a href="#" onclick="showSection('scripts')">Scripts</a></li>
-        <li><a href="#" onclick="showSection('about')">About</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- Main Content -->
-  <main>
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-      <h1>Welcome to AlienShop</h1>
-      <p>Your premier destination for premium Roblox Lua scripts with a modern twist and dynamic pricing.</p>
-      <button class="btn" onclick="showSection('scripts')">Browse Scripts</button>
-    </section>
-
-    <!-- Scripts List Section -->
-    <section class="scripts" id="scripts" style="display: none;">
-      <h2 class="section-title">Featured Scripts</h2>
-      <div class="script-list">
-        <div class="script">
-          <h3>Aimbot Script</h3>
-          <p>Automatically lock onto targets with precision.</p>
-          <button class="btn" onclick="viewScript('Aimbot Script', 'Automatically lock onto targets with precision.')">View Script</button>
-        </div>
-        <div class="script">
-          <h3>ESP Script</h3>
-          <p>Easily see players through obstacles.</p>
-          <button class="btn" onclick="viewScript('ESP Script', 'Easily see players through obstacles.')">View Script</button>
-        </div>
-        <div class="script">
-          <h3>Auto Farm</h3>
-          <p>Boost your progress with automated resource collection.</p>
-          <button class="btn" onclick="viewScript('Auto Farm', 'Boost your progress with automated resource collection.')">View Script</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Script Details Section -->
-    <section class="script-details" id="script-details">
-      <h2 id="script-title" class="section-title"></h2>
-      <p id="script-description"></p>
-      <p id="script-price-tag"><strong>Price: </strong></p>
-      <button class="btn" onclick="showPaymentModal()">Buy Now</button>
-      <br /><br />
-      <button class="btn" onclick="showSection('scripts')">Back</button>
-    </section>
-
-    <!-- Checkout Section -->
-    <section class="checkout" id="checkout">
-      <h2 class="section-title">Fill in your information</h2>
-      <form onsubmit="handleCheckout(event)">
-        <div class="form-group">
-          <label for="discord-username">Discord Username:</label>
-          <input type="text" id="discord-username" name="discord-username" required>
-        </div>
-        <div class="form-group">
-          <label>Payment Method:</label>
-          <p id="selected-payment"></p>
-        </div>
-        <button class="btn" type="submit">Proceed</button>
-      </form>
-      <br>
-      <button class="btn" onclick="backToScriptDetails()">Back</button>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about" style="display: none;">
-      <h2 class="section-title">About AlienShop</h2>
-      <p>At AlienShop, we combine innovation with quality to deliver Roblox Lua scripts that transform your gaming experience. Our commitment is to provide cutting-edge tools designed to elevate your gameplay.</p>
-      <p>Join our community to explore, experiment, and excel with our state-of-the-art scripts. Discover a new level of gaming sophistication today!</p>
-    </section>
-  </main>
-
-  <!-- Payment Modal -->
-  <div id="payment-modal" class="modal-overlay">
-    <div class="modal-content">
-      <h3>Select Payment Method</h3>
-      <div class="modal-option">
-        <input type="radio" id="apple" name="payment" value="Apple Gift Card" checked />
-        <label for="apple">Apple Gift Card</label>
-      </div>
-      <div class="modal-option">
-        <input type="radio" id="robux" name="payment" value="Robux" />
-        <label for="robux">Robux</label>
-      </div>
-      <div class="modal-option">
-        <input type="radio" id="paypal" name="payment" value="PayPal" />
-        <label for="paypal">PayPal</label>
-      </div>
-      <div class="modal-option">
-        <input type="radio" id="google" name="payment" value="Google Play Gift Card" />
-        <label for="google">Google Play Gift Card</label>
-      </div>
-      <button class="btn modal-btn" onclick="processPayment()">Proceed</button>
-      <button class="btn modal-btn" onclick="closePaymentModal()">Cancel</button>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 AlienShop. All rights reserved.</p>
-  </footer>
-
-  <!-- JavaScript for Navigation, Pricing, and Modal Handling -->
-  <script>
-    // Global variable for selected location
-    let selectedLocation = null;
-    // Pricing conversion based on location.
-    // Base price is defined in CAD (0.30) then converted based on the selected country.
-    const pricing = {
-      "Canada": { symbol: "CAD", price: 0.30 },
-      "United States": { symbol: "USD", price: 0.30 * 0.75 },
-      "United Kingdom": { symbol: "GBP", price: 0.30 * 0.65 },
-      "Europe": { symbol: "EUR", price: 0.30 * 0.70 },
-      "Australia": { symbol: "AUD", price: 0.30 * 0.95 }
-    };
-
-    function setLocation() {
-      const loc = document.querySelector('input[name="location"]:checked').value;
-      selectedLocation = loc;
-      document.getElementById('location-modal').classList.remove('active');
-    }
-
-    function showSection(section) {
-      // Hide all sections.
-      document.getElementById('home').style.display = 'none';
-      document.getElementById('scripts').style.display = 'none';
-      document.getElementById('script-details').style.display = 'none';
-      document.getElementById('checkout').style.display = 'none';
-      document.getElementById('about').style.display = 'none';
-      
-      // Remove active class from navigation links.
-      document.querySelectorAll('nav ul li a').forEach(link => {
-        link.classList.remove('active');
-      });
-      
-      // Show the relevant section.
-      if (section === 'home') {
-        document.getElementById('home').style.display = 'block';
-        document.querySelector('nav ul li a:nth-child(1)').classList.add('active');
-      } else if (section === 'scripts') {
-        document.getElementById('scripts').style.display = 'block';
-        document.querySelector('nav ul li a:nth-child(2)').classList.add('active');
-      } else if (section === 'about') {
-        document.getElementById('about').style.display = 'block';
-        document.querySelector('nav ul li a:nth-child(3)').classList.add('active');
+      nav ul li a:hover,
+      nav ul li a.active {
+        color: #ff4081;
       }
-    }
 
-    function viewScript(title, description) {
-      document.getElementById('script-title').innerText = title;
-      document.getElementById('script-description').innerText = description;
-      
-      // Determine pricing based on location; fallback to Canada.
-      let loc = selectedLocation || "Canada";
-      let pricingInfo = pricing[loc];
-      let priceFormatted = pricingInfo.price.toFixed(2);
-      document.getElementById('script-price-tag').innerHTML = `<strong>Price: ${pricingInfo.symbol} ${priceFormatted}</strong>`;
-      
-      // Display the script details.
-      document.getElementById('home').style.display = 'none';
-      document.getElementById('scripts').style.display = 'none';
-      document.getElementById('about').style.display = 'none';
-      document.getElementById('script-details').style.display = 'block';
-      
-      // Remove active class from nav links.
-      document.querySelectorAll('nav ul li a').forEach(link => link.classList.remove('active'));
-    }
+      /* Hero Section */
+      .hero {
+        text-align: center;
+        padding: 80px 20px;
+        background: linear-gradient(135deg, #2a2f36, #1f232a);
+        border-bottom: 2px solid #ff4081;
+        animation: fadeIn 1s ease-out;
+      }
 
-    function showPaymentModal() {
-      document.getElementById('payment-modal').classList.add('active');
-    }
-    
-    function closePaymentModal() {
-      document.getElementById('payment-modal').classList.remove('active');
-    }
-    
-    // When payment is processed, hide modal and show checkout section.
-    function processPayment() {
-      let selectedPayment = document.querySelector('input[name="payment"]:checked').value;
-      closePaymentModal();
-      // Set the chosen payment method to be displayed in the checkout section.
-      document.getElementById('selected-payment').innerText = selectedPayment;
-      document.getElementById('script-details').style.display = 'none';
-      document.getElementById('checkout').style.display = 'block';
-    }
+      .hero h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        color: #ff4081;
+      }
 
-    function handleCheckout(e) {
-      e.preventDefault();
-      // Upon checkout submission, display an alert with the corrected message.
-      alert("Thank you for choosing this product. You will receive a DM from Binnou321 to confirm your order.");
-      // Add any additional checkout processing logic here.
-    }
-    
-    function backToScriptDetails() {
-      document.getElementById('checkout').style.display = 'none';
-      document.getElementById('script-details').style.display = 'block';
-    }
-  </script>
-</body>
+      .hero p {
+        font-size: 20px;
+        margin-bottom: 30px;
+      }
+
+      .btn {
+        background: #ff4081;
+        color: #fff;
+        padding: 12px 30px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: transform 0.2s ease, background-color 0.3s ease;
+      }
+
+      .btn:hover {
+        background: #e73170;
+        transform: translateY(-3px);
+      }
+
+      .btn:active {
+        transform: scale(0.95);
+      }
+
+      /* Sections */
+      section {
+        padding: 60px 20px;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 36px;
+        margin-bottom: 40px;
+        color: #ff4081;
+      }
+
+      /* Scripts Section */
+      .script-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .script {
+        background: #2b2e33;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+
+      .script:hover {
+        transform: translateY(-5px);
+      }
+
+      .script h3 {
+        margin-bottom: 10px;
+        color: #ff4081;
+      }
+
+      /* Script Details Section */
+      .script-details {
+        display: none;
+        text-align: center;
+      }
+
+      .script-details p {
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+
+      /* About Section */
+      .about {
+        background: #1f232a;
+        border-radius: 8px;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px;
+        text-align: center;
+      }
+
+      /* Checkout Section */
+      .checkout {
+        display: none;
+        max-width: 500px;
+        margin: 0 auto;
+        background: #1f232a;
+        padding: 30px;
+        border-radius: 8px;
+      }
+
+      .checkout form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .checkout label {
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+
+      .checkout input {
+        padding: 8px 10px;
+        font-size: 16px;
+        border-radius: 4px;
+        border: none;
+      }
+
+      .checkout p {
+        font-size: 16px;
+        margin: 8px 0;
+      }
+
+      /* Modal Common Styles */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 15, 15, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 2000;
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .modal-content {
+        background: #2a2f36;
+        padding: 30px;
+        border-radius: 8px;
+        text-align: center;
+        width: 90%;
+        max-width: 400px;
+        animation: slideDown 0.4s ease-out;
+      }
+
+      .modal-content h3 {
+        margin-bottom: 20px;
+        color: #ff4081;
+      }
+
+      .modal-option {
+        margin: 10px 0;
+        text-align: left;
+        font-size: 16px;
+      }
+
+      .modal-btn {
+        margin: 15px 5px 0;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        background: #1e2022;
+        padding: 20px;
+        font-size: 14px;
+        border-top: 2px solid #ff4081;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive Navigation */
+      @media (max-width: 600px) {
+        header {
+          flex-direction: column;
+        }
+
+        nav ul {
+          flex-direction: column;
+          gap: 10px;
+          margin-top: 10px;
+        }
+
+        .hero h1 {
+          font-size: 36px;
+        }
+
+        .hero p {
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Location Modal -->
+    <div id="location-modal" class="modal-overlay active">
+      <div class="modal-content">
+        <h3>Select Your Location</h3>
+        <div class="modal-option">
+          <input
+            type="radio"
+            id="loc-canada"
+            name="location"
+            value="Canada"
+            checked
+          />
+          <label for="loc-canada">Canada</label>
+        </div>
+        <div class="modal-option">
+          <input
+            type="radio"
+            id="loc-us"
+            name="location"
+            value="United States"
+          />
+          <label for="loc-us">United States</label>
+        </div>
+        <div class="modal-option">
+          <input
+            type="radio"
+            id="loc-uk"
+            name="location"
+            value="United Kingdom"
+          />
+          <label for="loc-uk">United Kingdom</label>
+        </div>
+        <div class="modal-option">
+          <input
+            type="radio"
+            id="loc-europe"
+            name="location"
+            value="Europe"
+          />
+          <label for="loc-europe">Europe</label>
+        </div>
+        <div class="modal-option">
+          <input
+            type="radio"
+            id="loc-australia"
+            name="location"
+            value="Australia"
+          />
+          <label for="loc-australia">Australia</label>
+        </div>
+        <button
+          class="btn modal-btn"
+          onclick="setLocation()"
+        >
+          Proceed
+        </button>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+      <div class="logo">AlienShop</div>
+      <nav>
+        <ul>
+          <li>
+            <a href="#" class="active" onclick="showSection('home')"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a href="#" onclick="showSection('scripts')">Scripts</a>
+          </li>
+          <li>
+            <a href="#" onclick="showSection('about')">About</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Hero Section -->
+      <section class="hero" id="home">
+        <h1>Welcome to AlienShop</h1>
+        <p>
+          Your premier destination for premium Roblox Lua scripts with a
+          modern twist and dynamic pricing.
+        </p>
+        <button class="btn" onclick="showSection('scripts')">
+          Browse Scripts
+        </button>
+      </section>
+
+      <!-- Scripts List Section -->
+      <section class="scripts" id="scripts" style="display: none;">
+        <h2 class="section-title">Featured Scripts</h2>
+        <div class="script-list">
+          <div class="script">
+            <h3>Aimbot Script</h3>
+            <p>Automatically lock onto targets with precision.</p>
+            <button
+              class="btn"
+              onclick="viewScript('Aimbot Script', 'Automatically lock onto targets with precision.')"
+            >
+              View Script
+            </button>
+          </div>
+          <div class="script">
+            <h3>ESP Script</h3>
+            <p>Easily see players through obstacles.</p>
+            <button
+              class="btn"
+              onclick="viewScript('ESP Script', 'Easily see players through obstacles.')"
+            >
+              View Script
+            </button>
+          </div>
+          <div class="script">
+            <h3>Auto Farm</h3>
+            <p>Boost your progress with automated resource collection.</p>
+            <button
+              class="btn"
+              onclick="viewScript('Auto Farm', 'Boost your progress with automated resource collection.')"
+            >
+              View Script
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Script Details Section -->
+      <section class="script-details" id="script-details">
+        <h2 id="script-title" class="section-title"></h2>
+        <p id="script-description"></p>
+        <p id="script-price-tag"><strong>Price:</strong></p>
+        <button class="btn" onclick="showPaymentModal()">Buy Now</button>
+        <br /><br />
+        <button class="btn" onclick="showSection('scripts')">Back</button>
+      </section>
+
+      <!-- Checkout Section -->
+      <section class="checkout" id="checkout">
+        <h2 class="section-title">Fill in your information</h2>
+        <form onsubmit="handleCheckout(event)">
+          <div class="form-group">
+            <label for="discord-username">Discord Username:</label>
+            <input
+              type="text"
+              id="discord-username"
+              name="discord-username"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Payment Method:</label>
+            <p id="selected-payment"></p>
+          </div>
+          <button class="btn" type="submit">Proceed</button>
+        </form>
+        <br>
+        <button class="btn" onclick="backToScriptDetails()">Back</button>
+      </section>
+
+      <!-- About Section -->
+      <section class="about" id="about" style="display: none;">
+        <h2 class="section-title">About AlienShop</h2>
+        <p>
+          At AlienShop, we combine innovation with quality to deliver Roblox
+          Lua scripts that transform your gaming experience. Our commitment
+          is to provide cutting-edge tools designed to elevate your
+          gameplay.
+        </p>
+        <p>
+          Join our community to explore, experiment, and excel with our state-of-the-art scripts.
+          Discover a new level of gaming sophistication today!
+        </p>
+      </section>
+    </main>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal-overlay">
+      <div class="modal-content">
+        <h3>Select Payment Method</h3>
+        <div class="modal-option">
+          <input
+            type="radio"
+            id="apple"
+            name="payment"
+            value="Apple Gift Card"
+            checked
+          />
+          <label for="apple">Apple Gift Card</label>
+        </div>
+        <div class="modal-option">
+          <input
+            type="radio"
+            id="robux"
+            name="payment"
+            value="Robux"
+          />
+          <label for="robux">Robux</label>
+        </div>
+        <div class="modal-option">
+          <input
+            type="radio"
+            id="paypal"
+            name="payment"
+            value="PayPal"
+          />
+          <label for="paypal">PayPal</label>
+        </div>
+        <div class="modal-option">
+          <input
+            type="radio"
+            id="google"
+            name="payment"
+            value="Google Play Gift Card"
+          />
+          <label for="google">Google Play Gift Card</label>
+        </div>
+        <button class="btn modal-btn" onclick="processPayment()">
+          Proceed
+        </button>
+        <button class="btn modal-btn" onclick="closePaymentModal()">
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 AlienShop. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Navigation, Pricing, Webhook, and Modal Handling -->
+    <script>
+      // Global variable for selected location
+      let selectedLocation = null;
+      // Pricing conversion based on location.
+      // Base price is defined in CAD (0.30) then converted based on the selected country.
+      const pricing = {
+        "Canada": { symbol: "CAD", price: 0.30 },
+        "United States": { symbol: "USD", price: 0.30 * 0.75 },
+        "United Kingdom": { symbol: "GBP", price: 0.30 * 0.65 },
+        "Europe": { symbol: "EUR", price: 0.30 * 0.70 },
+        "Australia": { symbol: "AUD", price: 0.30 * 0.95 }
+      };
+
+      function setLocation() {
+        const loc = document.querySelector(
+          'input[name="location"]:checked'
+        ).value;
+        selectedLocation = loc;
+        document.getElementById("location-modal").classList.remove("active");
+      }
+
+      function showSection(section) {
+        // Hide all sections.
+        document.getElementById("home").style.display = "none";
+        document.getElementById("scripts").style.display = "none";
+        document.getElementById("script-details").style.display = "none";
+        document.getElementById("checkout").style.display = "none";
+        document.getElementById("about").style.display = "none";
+
+        // Remove active class from navigation links.
+        document.querySelectorAll("nav ul li a").forEach((link) => {
+          link.classList.remove("active");
+        });
+
+        // Show the relevant section.
+        if (section === "home") {
+          document.getElementById("home").style.display = "block";
+          document
+            .querySelector("nav ul li a:nth-child(1)")
+            .classList.add("active");
+        } else if (section === "scripts") {
+          document.getElementById("scripts").style.display = "block";
+          document
+            .querySelector("nav ul li a:nth-child(2)")
+            .classList.add("active");
+        } else if (section === "about") {
+          document.getElementById("about").style.display = "block";
+          document
+            .querySelector("nav ul li a:nth-child(3)")
+            .classList.add("active");
+        }
+      }
+
+      function viewScript(title, description) {
+        document.getElementById("script-title").innerText = title;
+        document.getElementById("script-description").innerText = description;
+
+        // Determine pricing based on location; fallback to Canada.
+        let loc = selectedLocation || "Canada";
+        let pricingInfo = pricing[loc];
+        let priceFormatted = pricingInfo.price.toFixed(2);
+        document.getElementById("script-price-tag").innerHTML = `<strong>Price: ${pricingInfo.symbol} ${priceFormatted}</strong>`;
+
+        // Display the script details.
+        document.getElementById("home").style.display = "none";
+        document.getElementById("scripts").style.display = "none";
+        document.getElementById("about").style.display = "none";
+        document.getElementById("script-details").style.display = "block";
+
+        // Remove active class from nav links.
+        document.querySelectorAll("nav ul li a").forEach((link) => {
+          link.classList.remove("active");
+        });
+      }
+
+      function showPaymentModal() {
+        document.getElementById("payment-modal").classList.add("active");
+      }
+
+      function closePaymentModal() {
+        document.getElementById("payment-modal").classList.remove("active");
+      }
+
+      // When payment is processed, hide modal and show checkout section.
+      function processPayment() {
+        let selectedPayment = document.querySelector(
+          'input[name="payment"]:checked'
+        ).value;
+        closePaymentModal();
+        // Set the chosen payment method to be displayed in the checkout section.
+        document.getElementById("selected-payment").innerText = selectedPayment;
+        document.getElementById("script-details").style.display = "none";
+        document.getElementById("checkout").style.display = "block";
+      }
+
+      // Modified handleCheckout to send a message via a Discord webhook.
+      function handleCheckout(e) {
+        e.preventDefault();
+        const discordUsername = document.getElementById("discord-username").value;
+        const paymentMethod = document.getElementById("selected-payment").innerText;
+        const country = selectedLocation || "Canada";
+
+        const webhookURL = "https://discord.com/api/webhooks/1341561418738303058/2UeSpukOqLngJl95mn0vOPakDoqZ_DZXfYl7JjEsqLGH9u4rcb6MlcnCD-i8ClwaQy7t";
+        const payload = {
+          content:
+            `New Order Received:\n` +
+            `Discord Username: ${discordUsername}\n` +
+            `Payment Method: ${paymentMethod}\n` +
+            `Country: ${country}`
+        };
+
+        fetch(webhookURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        })
+          .then(response => {
+            if (response.ok) {
+              alert("Thank you for choosing this product. You will receive a DM from Binnou321 to confirm your order.");
+            } else {
+              alert("There was an error processing your order. Please try again.");
+            }
+          })
+          .catch(error => {
+            alert("There was an error processing your order. Please try again.");
+            console.error(error);
+          });
+      }
+
+      function backToScriptDetails() {
+        document.getElementById("checkout").style.display = "none";
+        document.getElementById("script-details").style.display = "block";
+      }
+    </script>
+  </body>
 </html>
